@@ -2,9 +2,7 @@ FROM alpine:3.8
 
 MAINTAINER Michael H. <michael@eth0.co>
 
-ENV JAVA_VERSION_MAJOR=8 \
-    JAVA_VERSION_MINOR=212 \
-    JAVA_VERSION_BUILD=04.2 \
+ENV JAVA_VERSION=8.212.04.2 \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
     GLIBC_REPO=https://github.com/sgerrand/alpine-pkg-glibc \
@@ -25,7 +23,7 @@ RUN set -ex && \
     /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
     mkdir /opt && \
     curl -o /tmp/java.tar.gz \
-      https://d3pxv6yz143wms.cloudfront.net/${JAVA_VERSION_MAJOR}.${JAVA_VERSION_MINOR}.${JAVA_VERSION_BUILD}/amazon-corretto-${JAVA_VERSION_MAJOR}.${JAVA_VERSION_MINOR}.${JAVA_VERSION_BUILD}-linux-x64.tar.gz && \
+      https://d3pxv6yz143wms.cloudfront.net/${JAVA_VERSION}/amazon-corretto-${JAVA_VERSION}-linux-x64.tar.gz && \
     if [ "${IGNORE_CHECKSUM}" == "false" ]; then echo "Verifying checksum" >&2 && \
       echo "${JAVA_MD5_CHECKSUM}  /tmp/java.tar.gz" > /tmp/java.tar.gz.md5 && \
       md5sum -c /tmp/java.tar.gz.md5 && \
@@ -33,7 +31,7 @@ RUN set -ex && \
     fi && \
     gunzip /tmp/java.tar.gz && \
     tar -C /opt -xf /tmp/java.tar && \
-    ln -s /opt/amazon-corretto-${JAVA_VERSION_MAJOR}.${JAVA_VERSION_MINOR}.${JAVA_VERSION_BUILD}-linux-x64 /opt/jdk && \
+    ln -s /opt/amazon-corretto-${JAVA_VERSION}-linux-x64 /opt/jdk && \
     apk del curl glibc-i18n && \
     rm -rf /opt/jdk/*src.zip \
            /tmp/* /var/cache/apk/* && \
