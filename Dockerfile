@@ -1,6 +1,6 @@
 FROM alpine:3.8
 
-MAINTAINER Michael H. <michael@eth0.co>
+MAINTAINER Michael H. <michael@iptables.sh>
 
 ENV JAVA_VERSION=8.212.04.2 \
     JAVA_HOME=/opt/jdk \
